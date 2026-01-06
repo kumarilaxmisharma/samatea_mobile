@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:samatea_mobile/app/navigation/bottom_navigation.dart';
+import 'package:samatea/features/splash/presentation/screens/welcome_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const BottomNavigation(),
+      home: const WelcomeScreen(),
     );
   }
 }

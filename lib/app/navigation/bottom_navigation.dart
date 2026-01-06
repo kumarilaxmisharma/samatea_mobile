@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:samatea_mobile/features/diet/presentation/screens/diet_screen.dart';
-import 'package:samatea_mobile/features/fitness/presentation/screens/fitness_screen.dart';
-import 'package:samatea_mobile/features/home/presentation/screens/home_screen.dart';
-import 'package:samatea_mobile/features/profile/presentation/screens/profile_screen.dart';
+import 'package:samatea/features/diet/presentation/screens/diet_screen.dart';
+import 'package:samatea/features/fitness/presentation/screens/fitness_screen.dart';
+import 'package:samatea/features/home/presentation/screens/home_screen.dart';
+import 'package:samatea/features/profile/presentation/screens/profile_screen.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key});

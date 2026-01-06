@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:samatea_mobile/features/splash/presentation/screens/onboarding_screen.dart';
+import 'package:samatea/features/splash/presentation/screens/onboarding_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});

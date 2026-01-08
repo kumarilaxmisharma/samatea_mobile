@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:samatea/app/navigation/bottom_navigation.dart';
+import 'package:get/get.dart';
+import 'package:samatea/features/personalization/presentation/bindings/personalization_binding.dart';
+import 'package:samatea/features/personalization/presentation/screens/personalization_screen.dart';
 import 'package:samatea/features/splash/domain/entities/onboarding_entity.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -15,22 +17,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<OnboardingEntity> _onboardingData = [
     OnboardingEntity(
-      imageUrl: 'https://picsum.photos/seed/picsum/400/400',
+      imageUrl: 'assets/images/onboarding/Yoga 2.png', // User should replace with actual files
       title: 'Track your fitness goal',
       description: 'customized workout routines based on the user\'s fitness level, goals, and preferences',
     ),
     OnboardingEntity(
-      imageUrl: 'https://picsum.photos/seed/picsum2/400/400',
+      imageUrl: 'assets/images/onboarding/Fitness.png',
       title: 'Monitor your workout',
       description: 'customized workout routines based on the user\'s fitness level, goals, and preferences',
     ),
     OnboardingEntity(
-      imageUrl: 'https://picsum.photos/seed/picsum3/400/400',
+      imageUrl: 'assets/images/onboarding/Jogging.png',
       title: 'Personalise workout routine',
       description: 'customized workout routines based on the user\'s fitness level, goals, and preferences',
     ),
     OnboardingEntity(
-      imageUrl: 'https://picsum.photos/seed/picsum3/400/400',
+      imageUrl: 'assets/images/onboarding/Salad.png',
       title: 'Nutrition plans',
       description: 'customized nutrition plans based on the user\'s dietary preferences and fitness goals',
     ),
@@ -58,31 +60,39 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 },
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: _buildPageIndicator(),
-            ),
-            const SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                if (_currentPage < _onboardingData.length - 1) {
-                  _pageController.nextPage(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.ease,
-                  );
-                } else {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => const BottomNavigation(),
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: _buildPageIndicator(),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_currentPage < _onboardingData.length - 1) {
+                        _pageController.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.ease,
+                        );
+                      } else {
+                        Get.off(() => const PersonalizationScreen(),
+                            binding: PersonalizationBinding());
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
                     ),
-                  );
-                }
-              },
-              child: Text(
-                _currentPage < _onboardingData.length - 1 ? 'Next' : 'Get Started',
+                    child: Text(
+                      _currentPage < _onboardingData.length - 1 ? 'Next' : 'Get Started',
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 20.0),
           ],
         ),
       ),
@@ -104,7 +114,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       height: 8.0,
       width: isActive ? 24.0 : 8.0,
       decoration: BoxDecoration(
-        color: isActive ? Colors.blue : Colors.grey,
+        color: isActive ? Colors.deepPurple : Colors.grey[300],
         borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
     );
@@ -124,10 +134,21 @@ class OnboardingPage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.network(
+        // Use Image.asset with errorBuilder to handle missing files gracefully
+        Image.asset(
           onboardingEntity.imageUrl,
           height: 300.0,
           width: 300.0,
+          errorBuilder: (context, error, stackTrace) {
+             return Container(
+               height: 300.0,
+               width: 300.0,
+               color: Colors.grey[300],
+               child: const Center(
+                 child: Text('Place image in assets/images/', textAlign: TextAlign.center),
+               ),
+             );
+          },
         ),
         const SizedBox(height: 40.0),
         Text(
